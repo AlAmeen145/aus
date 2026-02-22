@@ -1,1 +1,80 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.sln.docstates
+*.pdb
+*.cache
+*.ilk
+*.log
+*.tlog
+*.iobj
+*.ipdb
+*.idb
 
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Visual Studio Code
+.vscode/
+
+# ASP.NET / MVC
+App_Data/
+*.dbmdl
+*.publish.xml
+
+# Rider / JetBrains ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+# Logs
+*.log
+*.vspscc
+*.vssscc
+
+# Others
+*.class
+*.dll
+*.exe
+*.cache
+*.pdb
+*.mdb
+*.bak
+*.Backup
+*.swp
+*.tmp
+
+# Node / NPM if you have frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Web / frontend build
+dist/
+build/
+tmp/
+temp/
+*.map
+*.min.js
+*.min.css
