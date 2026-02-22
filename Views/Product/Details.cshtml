@@ -1,0 +1,172 @@
+﻿@model P2WebMVC.Models.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+
+<section class="ftco-section">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 ftco-animate">
+                <a href="images/menu-2.jpg" class="image-popup"><img src="@Model?.Product?.ImageUrl" class="img-fluid"
+                        alt="Colorlib Template"></a>
+            </div>
+            <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                <h3>@Model?.Product?.Name</h3>
+                <div class="rating d-flex">
+
+
+                        <p class="text-left mr-4">
+                            @{
+                                var rating = (int)(Model?.Product?.Rating ?? 0);
+                                for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= rating)
+                                    {
+                                        <a href="#"><span class="ion-ios-star"></span></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                    }
+                                }
+                            }
+                        </p>
+
+
+                    <p class="text-left mr-4">
+                        <a  href="#" class="mr-2" style="color: #000;">@(Model?.Product?.Rating ?? 0 ) <span style="color: #bbb;"> Rating</span></a>
+                    </p>
+                    <p class="text-left">
+                        <a href="#" class="mr-2" style="color: #000;">@(Model?.Product?.Sold  ?? 0 )<span style="color: #bbb;"> Sold</span></a>
+                    </p>
+                </div>
+                <p class="price"><span>$ @Model?.Product?.Price</span></p>
+                <p class="text-dark">@Model?.Product?.Description</p>
+
+                <form asp-controller="Product" asp-action="AddToCart" asp-route-ProductId = "@Model?.Product?.ProductId">
+                <div class="row mt-4">
+
+                  
+                    <div class="col-md-6">
+                        <div class="form-group d-flex">
+                            <div class="select-wrap">
+                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+
+                            @{
+                                var SizeString = Model?.Product?.Size ?? "";
+                                var SizeList = SizeString.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                                           .Select(c => c.Trim())
+                                                           .Where(c => !string.IsNullOrWhiteSpace(c))
+                                                           .ToList();
+                            }
+                            <select name="Size" class="form-control">
+                                <option value="">Select Size</option>
+                                @foreach (var size in SizeList)
+                                {
+                                    <option value="@size">@size</option>
+                                }
+                            </select>
+                               
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group d-flex">
+                            <div class="select-wrap">
+                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+
+                            @{
+                                var colorString = Model?.Product?.Color ?? "";
+                                var colorList = colorString.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                                           .Select(c => c.Trim())
+                                                           .Where(c => !string.IsNullOrWhiteSpace(c))
+                                                           .ToList();
+                            }
+                            <select name="Color" class="form-control">
+                                <option value="">Select Color</option>
+                                @foreach (var color in colorList)
+                                {
+                                    <option value="@color">@color</option>
+                                }
+                            </select>
+                               
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    @* <div class="w-100"></div> *@
+                    <div class="input-group col-md-6 d-flex mb-3">
+
+
+                        <span class="input-group-btn mr-2">
+                            <button type="button" class="quantity-left-minus btn">
+                                <i class="ion-ios-remove"></i>
+                            </button>
+                        </span>
+
+                        <input type="number" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10" readonly>
+
+                        <span class="input-group-btn ml-2">
+                            <button type="button" class="quantity-right-plus btn" >
+                                <i class="ion-ios-add"></i>
+                            </button>
+                        </span>
+
+                        @section Scripts {
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    var quantityInput = document.getElementById('quantity');
+                                    var minusBtn = document.querySelector('.quantity-left-minus');
+                                    var plusBtn = document.querySelector('.quantity-right-plus');
+
+                                    minusBtn.addEventListener('click', function (e) {
+                                        e.preventDefault();
+                                        var current = parseInt(quantityInput.value) || 1;
+                                        var min = parseInt(quantityInput.min) || 1;
+                                        if (current > min) {
+                                            quantityInput.value = current - 1;
+                                        }
+                                    });
+
+                                    plusBtn.addEventListener('click', function (e) {
+                                        e.preventDefault();
+                                        var current = parseInt(quantityInput.value) || 1;
+                                        var max = parseInt(quantityInput.max) || 10;
+                                        if (current < max) {
+                                            quantityInput.value = current + 1;
+                                        }
+                                    });
+                                });
+                            </script>
+                        }
+                    </div>
+
+
+                    @* <div class="w-100"></div> *@
+                    <div class="col-md-12">
+                        <p style="color: #000;">@Model?.Product?.Stock pieces available</p>
+                    </div>
+
+                  
+                </div>
+
+
+                <p class="btn btn-black py-3 px-5" style="cursor:pointer;" onclick="this.closest('form').submit();">Add to Cart</p>
+
+                
+
+                </form> 
+
+
+               
+            </div>
+        </div>
+    </div>
+</section>
